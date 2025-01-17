@@ -1,0 +1,33 @@
+body {
+    padding-top: 20px;
+    background: #888888;
+    font-family: 'Courier New', monospace;
+    font-size: 16px;
+}
+.dialog {
+    border: 4px outset white;
+    width: 80%;
+    margin: auto;
+    padding: 1.1em;
+    background: #999999;
+}
+/* desktop */
+@media screen and (min-width:750px) {
+    .cols {
+        display: flex;
+        flex-direction: row;
+    }
+    body {
+        width: 60%;
+        margin: auto;
+    }
+}
+/* mobile */
+@media screen and (max-width:750px) {
+
+}
+/* fmt */
+.white { color: white; }
+.small { font-size: 0.8em; }
+.large { font-size: 1.2em; }
+
