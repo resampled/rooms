@@ -9,7 +9,7 @@ class CustomUser(AbstractUser):
         return self.username
 
 class Room(models.Model):
-    id = models.SlugField(unique=True, blank=False, null=True, max_length=50)
+    id = models.SlugField(unique=True, blank=False, null=False, primary_key=True, max_length=50)
     owner_nk = models.CharField(unique=False,null=True,max_length=200)
     public_list = models.BooleanField()
     passworded = models.BooleanField()
@@ -18,6 +18,7 @@ class Room(models.Model):
         return self.id
 
 class Message(models.Model):
+    id = models.IntegerField(primary_key=True)
     author_nk = models.CharField(unique=False,null=True,max_length=200)
     author_ip = models.CharField(unique=False,null=True,max_length=80)
     message = models.TextField(unique=False,null=True,max_length=1400)
