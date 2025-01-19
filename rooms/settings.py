@@ -149,11 +149,11 @@ USE_I18N = True
 USE_TZ = True
 
 # captcha
-CAPTCHA_LENGTH = 6
+CAPTCHA_LENGTH = 5
 CAPTCHA_TIMEOUT = 7
-CAPTCHA_LETTER_ROTATION = (-35,35)
-CAPTCHA_IMAGE_SIZE = (120,30)
-CAPTCHA_FONT_SIZE = 18
+CAPTCHA_LETTER_ROTATION = (-11,11)
+CAPTCHA_IMAGE_SIZE = (200,50)
+CAPTCHA_FONT_SIZE = 26
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
