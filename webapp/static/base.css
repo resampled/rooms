@@ -11,6 +11,13 @@ body {
     padding: 1.1em;
     background: #999999;
 }
+.nameform {
+    width: 50%;
+    height: 2em;
+}
+.captcha {
+    image-rendering: pixelated;
+}
 /* desktop */
 @media screen and (min-width:750px) {
     .cols {
@@ -21,13 +28,25 @@ body {
         width: 60%;
         margin: auto;
     }
+    .captcha {
+        width: 50%;
+        padding: 0 25%;
+    }
+    #id_captcha_1 {
+        width: 100%;
+        height: 2em;
+        text-align:center;
+    }
 }
 /* mobile */
 @media screen and (max-width:750px) {
-
+    .captcha {
+        width: 100%;
+    }
 }
 /* fmt */
 .white { color: white; }
 .small { font-size: 0.8em; }
 .large { font-size: 1.2em; }
+.center { text-align:center; }
 
