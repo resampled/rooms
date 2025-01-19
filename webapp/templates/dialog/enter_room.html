@@ -1,1 +1,26 @@
+{% extends '_base_dialog.html' %}
 
+{% block dialog %}
+<h1>enter room "{{room}}"</h1>
+
+<fieldset>
+<legend>This room contains the following description:</legend>
+<p class="small white">:)</p>
+</fieldset>
+<br>
+<form method="POST">
+{% csrf_token %}
+<label for="nickname_1">Nickname:</label>
+<input type="text" name="nickname" required class="nameform" id="nickname_1" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false" placeholder="ectoBiologist">
+<br>
+<label for="password_1">Password:</label>
+<input type="password" name="uniquekey" required class="nameform" id="uniquekey_1" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false" placeholder="PutTheBunnyBackInTheBox!!">
+<br>
+<p>This password is used to generate a unique ID.</p>
+<p>You can use the same nickname+password to remain "yourself" across different devices.</p>
+{{ captcha }}
+<input type="submit">
+</form>
+<p>No email/phone is required. This is not a login/signup form. If you clear your cookies, or use a different device, you will need to use this form again.</p>
+<br>
+{% endblock %}
