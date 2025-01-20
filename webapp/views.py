@@ -47,7 +47,8 @@ def create_room(request, **kwargs):
             passworded=passworded,
             password=request.POST['password'],
         )
-        # gen_room.save()
+        gen_room.save()
+        return HttpResponseRedirect(f"/{request.POST['url']}/")
     else: # GET
         captcha = CaptchaStandaloneForm()
         ctxt = {
