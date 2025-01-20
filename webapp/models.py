@@ -10,7 +10,7 @@ class CustomUser(AbstractUser):
 
 class Room(models.Model):
     id = models.SlugField(unique=True, blank=False, null=False, primary_key=True, max_length=50)
-    owner_nk = models.CharField(unique=False,null=True,max_length=200)
+    edit_code = models.CharField(unique=False,null=True,max_length=250)
     public_list = models.BooleanField()
     passworded = models.BooleanField()
     password = models.CharField(unique=False,null=True,max_length=200)
