@@ -11,7 +11,7 @@ def base_test(request, **kwargs):
     return render(request, '_base_dialog.html')
 
 def enter_room(request, **kwargs):
-    room = kwargs["room"]
+    room = Room.objects.get(id=kwargs["room"])
     if request.POST:
         captcha = CaptchaStandaloneForm(request.POST)
         if not captcha.is_valid(): # check captcha

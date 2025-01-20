@@ -1,12 +1,14 @@
 {% extends '_base_dialog.html' %}
 
 {% block dialog %}
-<h1>enter room "{{room}}"</h1>
+<h1>enter room "{{room.id}}"</h1>
 
+{% if room.description != '' %}
 <fieldset>
 <legend>This room contains the following description:</legend>
-<p class="small white">:)</p>
+<p class="small white">{{ room.description }}</p>
 </fieldset>
+{% endif %}
 <br>
 <form method="POST">
 {% csrf_token %}
