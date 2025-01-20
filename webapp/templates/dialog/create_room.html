@@ -1,1 +1,29 @@
+{% extends '_base_dialog.html' %}
 
+{% block dialog %}
+<h1>create room</h1>
+
+<form method="POST">
+{% csrf_token %}
+<p>url characters allowed: "0-9", "a-z", "-", "_"</p>
+<label for="rc_url">url:</label>
+<input type="text" name="url" required class="nameform" id="rc_url" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false" placeholder="room1">
+<hr>
+<p>use this code to edit your room, delete messages, etc... your edit code should be very secure, at least 25 chars long!</p>
+<label for="rc_url">edit code:</label>
+<input type="text" name="editcode" required class="nameform" id="rc_editcode" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false">
+<hr>
+<label for="rc_description">description (optional):</label>
+<br>
+<textarea type="text" name="description" id="rc_description" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false"></textarea>
+<hr>
+<label for="rc_passworded">has password?</label>
+<input type="checkbox" name="passworded" id="rc_passworded">
+<p>if enabled, type password: (this field will be ignored if unchecked)</p>
+<input type="text" name="password" class="nameform" id="rc_password" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false">
+<hr>
+{{captcha}}
+<input type="submit" class="submitform" value="create room...">
+</form>
+
+{% endblock %}
