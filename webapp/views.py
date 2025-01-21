@@ -7,8 +7,8 @@ import re
 def test_txt(request, **kwargs):
     return render(request,'test.txt',content_type='text/plain')
 
-def base_test(request, **kwargs):
-    return render(request, '_base_dialog.html')
+def room(request, **kwargs):
+    return HttpResponseRedirect('enter')
 
 def enter_room(request, **kwargs):
     room = Room.objects.get(id=kwargs["room"])
