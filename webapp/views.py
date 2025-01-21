@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from .forms import CaptchaStandaloneForm
 from .models import Room, Message
 from . import namekeys
@@ -13,7 +13,16 @@ def homepage(request, **kwargs):
         return render(request, 'homepage.html')
 
 def room(request, **kwargs):
-    return HttpResponseRedirect('enter')
+    captcha_passed = False
+    if request.session.get("captcha_passed", True):
+        captcha_passed = True
+    if captcha_passed == False:
+        return HttpResponseRedirect('')
+    # interpret cookie here
+    if request.POST:
+        return HttpResponse("post")
+    else: # GET
+        return HttpResponse("get")
 
 def enter_room(request, **kwargs):
     room = Room.objects.get(id=kwargs["room"])
@@ -21,12 +30,15 @@ def enter_room(request, **kwargs):
         captcha = CaptchaStandaloneForm(request.POST)
         if not captcha.is_valid(): # check captcha
             return HttpResponseRedirect('?err=captcha_failed')
+        else:
+            request.session["captcha_passed"] = True
         # todo: create cookie and redirect to room
         cookie_content = namekeys.generate_nk_combo(request.POST['nickname'],request.POST['uniquekey'])
         if cookie_content == '0':
             return HttpResponseRedirect('?err=nick_invchar')
-        response = HttpResponseRedirect('')
+        response = HttpResponseRedirect('.') # to room
         response.set_cookie(key='room_entry_do_not_share',value=cookie_content,max_age=3000000,httponly=True,samesite="Lax")
+        # maybe store in sessionstorage instead?
         return response
     else: # GET
         captcha = CaptchaStandaloneForm()
