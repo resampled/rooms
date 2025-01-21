@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from . import namekeys
 
 class CustomUser(AbstractUser):
     pass
@@ -20,7 +21,14 @@ class Room(models.Model):
 
 class Message(models.Model):
     id = models.IntegerField(primary_key=True)
-    author_nk = models.CharField(unique=False,null=True,max_length=200)
-    author_ip = models.CharField(unique=False,null=True,max_length=80)
+    author_namekey = models.CharField(unique=False,null=True,max_length=200)
+    author_ip = models.CharField(unique=False,null=True,max_length=100)
     message = models.TextField(unique=False,null=True,max_length=1400)
     room = models.ForeignKey('Room',on_delete=models.CASCADE, null=True)
+    def author_name(self):
+        return namekey.decouple_nk_to_name(self.author_namekey)
+    def author_nk_hash(self):
+        return namekey.hash_nk(self.author_namekey)
+    def author_nk_hash_trunc(self):
+        return "" + namekey.hash_nk(self.author_namekey)[:10] + ".."
+
