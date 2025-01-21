@@ -13,16 +13,25 @@ def homepage(request, **kwargs):
         return render(request, 'homepage.html')
 
 def room(request, **kwargs):
+    print(request.session.get("room_entry"))
     captcha_passed = False
     if request.session.get("captcha_passed", True):
         captcha_passed = True
     if captcha_passed == False:
-        return HttpResponseRedirect('')
+        return HttpResponseRedirect('entry?err=captcha_failed')
+    if request.session.get("room_entry") == None:
+        return HttpResponseRedirect('entry')
     # interpret cookie here
-    if request.POST:
+    if request.POST:                # POST #
         return HttpResponse("post")
-    else: # GET
-        return HttpResponse("get")
+    else:                           # GET #
+        room = Room.objects.get(id=kwargs["room"])
+        messages = Message.objects.filter(room=room)
+        ctxt = {
+            'room': room,
+            'messages': messages,
+        }
+        return render(request, 'room.html', context=ctxt)
 
 def enter_room(request, **kwargs):
     room = Room.objects.get(id=kwargs["room"])
@@ -37,7 +46,8 @@ def enter_room(request, **kwargs):
         if cookie_content == '0':
             return HttpResponseRedirect('?err=nick_invchar')
         response = HttpResponseRedirect('.') # to room
-        response.set_cookie(key='room_entry_do_not_share',value=cookie_content,max_age=3000000,httponly=True,samesite="Lax")
+        request.session["room_entry"] = cookie_content
+        # response.set_cookie(key='room_entry_do_not_share',value=cookie_content,max_age=3000000,httponly=True,samesite="Lax")
         # maybe store in sessionstorage instead?
         return response
     else: # GET
