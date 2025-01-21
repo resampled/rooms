@@ -4,8 +4,11 @@ from .models import Room, Message
 from django.http import HttpResponseRedirect
 import re
 
-def test_txt(request, **kwargs):
-    return render(request,'test.txt',content_type='text/plain')
+def homepage(request, **kwargs):
+    if request.POST:
+        return HttpResponseRedirect(f"/{request.POST['findroom']}/")
+    else:
+        return render(request, 'homepage.html')
 
 def room(request, **kwargs):
     return HttpResponseRedirect('enter')

@@ -1,1 +1,12 @@
+{% extends '_base.html' %}
 
+{% block body %}
+<a href="{% url 'create_room' %}">create room</a>
+<hr>
+<form method="POST">
+{% csrf_token %}
+<span>join room:</span>
+<input type="text" name="findroom">
+<input type="submit">
+</form>
+{% endblock %}
