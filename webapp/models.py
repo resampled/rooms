@@ -20,7 +20,7 @@ class Room(models.Model):
         return self.id
 
 class Message(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     author_namekey = models.CharField(unique=False,null=True,max_length=200)
     author_ip = models.CharField(unique=False,null=True,max_length=100)
     message = models.TextField(unique=False,null=True,max_length=1400)
