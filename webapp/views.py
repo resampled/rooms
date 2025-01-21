@@ -1,8 +1,10 @@
 from django.shortcuts import render
+from django.http import HttpResponseRedirect
 from .forms import CaptchaStandaloneForm
 from .models import Room, Message
-from django.http import HttpResponseRedirect
+from . import namekeys
 import re
+
 
 def homepage(request, **kwargs):
     if request.POST:
@@ -20,6 +22,12 @@ def enter_room(request, **kwargs):
         if not captcha.is_valid(): # check captcha
             return HttpResponseRedirect('?err=captcha_failed')
         # todo: create cookie and redirect to room
+        cookie_content = namekeys.generate_nk_combo(request.POST['nickname'],request.POST['uniquekey'])
+        if cookie_content == '0':
+            return HttpResponseRedirect('?err=nick_invchar')
+        response = HttpResponseRedirect('')
+        response.set_cookie(key='room_entry_do_not_share',value=cookie_content,max_age=3000000,httponly=True,samesite="Lax")
+        return response
     else: # GET
         captcha = CaptchaStandaloneForm()
         ctxt = {
