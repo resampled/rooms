@@ -26,9 +26,11 @@ class Message(models.Model):
     message = models.TextField(unique=False,null=True,max_length=1400)
     room = models.ForeignKey('Room',on_delete=models.CASCADE, null=True)
     def author_name(self):
-        return namekey.decouple_nk_to_name(self.author_namekey)
+        return namekeys.decouple_nk_to_name(self.author_namekey)
     def author_nk_hash(self):
-        return namekey.hash_nk(self.author_namekey)
+        return namekeys.hash_nk(self.author_namekey)
     def author_nk_hash_trunc(self):
-        return "" + namekey.hash_nk(self.author_namekey)[:10] + ".."
+        return "" + namekeys.hash_nk(self.author_namekey)[:10] + ".."
+    def __str__(self):
+        return f"{self.author_name()}[{self.author_nk_hash_trunc()}];#{self.id}: {self.message}"
 
