@@ -18,6 +18,16 @@ body {
 .captcha {
     image-rendering: pixelated;
 }
+.r-outer {
+    background: #bbbbbb;
+    padding: 1em;
+}
+.r-feed {
+    overflow-y: scroll;
+}
+.r-msg-tag {
+    font-weight: bold;
+}
 /* desktop */
 @media screen and (min-width:750px) {
     .cols {
@@ -37,11 +47,23 @@ body {
         height: 2em;
         text-align:center;
     }
+    .r-feed {
+        height: 50vh;
+    }
+    .r-msg-hash {
+        font-size: 0.9em;
+    }
 }
 /* mobile */
 @media screen and (max-width:750px) {
     .captcha {
         width: 100%;
+    }
+    .r-msg {
+        font-size: 12px;
+    }
+    .r-msg-hash {
+        font-size: 9px;
     }
 }
 /* fmt */
