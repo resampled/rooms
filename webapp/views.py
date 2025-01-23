@@ -29,9 +29,15 @@ def room(request, **kwargs):
     else:                           # GET #
         room = Room.objects.get(id=kwargs["room"])
         messages = Message.objects.filter(room=room)
+        your_name = namekeys.decouple_nk_to_name(request.session.get("room_entry"))
+        your_nk_hash = namekeys.hash_nk(request.session.get("room_entry"))
+        your_nk_hash_trunc = namekeys.hash_nk_trunc(request.session.get("room_entry")) # could be done in template?
         ctxt = {
             'room': room,
             'messages': messages,
+            'your_name': your_name,
+            'your_nk_hash': your_nk_hash,
+            'your_nk_hash_trunc': your_nk_hash_trunc,
         }
         return render(request, 'room.html', context=ctxt)
 
