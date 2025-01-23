@@ -14,3 +14,6 @@ def decouple_nk_to_name(inp):
 def hash_nk(nk):
     return base64.urlsafe_b64encode(bytes.fromhex(sha256(nk.encode('utf-8')).hexdigest())).decode()
 
+def hash_nk_trunc(nk):
+    out_trunc = base64.urlsafe_b64encode(bytes.fromhex(sha256(nk.encode('utf-8')).hexdigest())).decode()[:10]
+    return f"{out_trunc}.."
