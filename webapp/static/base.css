@@ -28,6 +28,9 @@ body {
 .r-msg-tag {
     font-weight: bold;
 }
+.r-input-bar {
+    display: flex;
+}
 /* desktop */
 @media screen and (min-width:750px) {
     .cols {
@@ -53,6 +56,13 @@ body {
     .r-msg-hash {
         font-size: 0.9em;
     }
+    .r-input-bar {
+        flex-direction: row;
+    }
+    .r-input-box {
+        width: -moz-available;
+        width: -webkit-fill-available;
+    }
 }
 /* mobile */
 @media screen and (max-width:750px) {
@@ -64,6 +74,14 @@ body {
     }
     .r-msg-hash {
         font-size: 9px;
+    }
+    .r-input-bar {
+        flex-direction: column;
+    }
+    .r-input-box {
+        height:1.4em;
+        margin-top: 0.4em;
+        margin-bottom: 1em;
     }
 }
 /* fmt */

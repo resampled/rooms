@@ -2,12 +2,12 @@
 
 {% block body %}
 <div class="r-outer">
-    <div class="r-feed">
+    <div class="r-feed" id="r-feed">
 {% for msg in messages %}
     <div class="r-msg" var1="{{ msg.id }}">
     <span class="r-msg-tag">
 &lt;<span class="r-msg-name">{{ msg.author_name }}</span>
-<span class="r-msg-hash" var1="{{msg.author_nk_hash}}">[{{ msg.author_nk_hash_trunc }}]</span>&gt;</span>
+<span class="r-msg-hash">[<abbr title="{{msg.author_nk_hash}}">{{ msg.author_nk_hash_trunc }}</abbr>]</span>&gt;</span>
 <span class="r-msg-msg">{{ msg.message }}</span>
     </div>
 {% endfor %}
@@ -15,8 +15,14 @@
     <div class="r-input">
 <form method="POST">
 {% csrf_token %}
-<input type="text" name="msg" class="r-input-box" autocomplete="off">
-<input type="submit" class="r-input-submit" value=Send>
+    <hr>
+    <div class="r-input-bar">
+        <span class="r-msg r-msg-tag">
+        &lt;<span class="r-msg-name">{{ your_name }}</span>
+        <span class="r-msg-hash">[<abbr title="{{your_nk_hash}}">{{ your_nk_hash_trunc }}</abbr>]</span>&gt;</span>
+        <input type="text" name="msg" class="r-input-box" autocomplete="off">
+        <input type="submit" class="r-input-submit" value=Send>
+    </div>
 </form>
     </div>
 </div>
