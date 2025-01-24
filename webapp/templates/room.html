@@ -2,6 +2,7 @@
 
 {% block body %}
 <div class="r-outer">
+                                                        {# todo: refresh ajax feed on new message #}
     <div class="r-feed" id="r-feed">
 {% for msg in messages %}
     <div class="r-msg" var1="{{ msg.id }}">
