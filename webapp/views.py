@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
 from .forms import CaptchaStandaloneForm
 from .models import Room, Message
+from .misc import get_client_ip
 from . import namekeys
 import re
 
@@ -25,7 +26,14 @@ def room(request, **kwargs):
     # now for the real stuff...
     if request.POST:                # POST #
         # todo: make message object 
-        return HttpResponse("post")
+        newmsg = Message(
+            author_namekey = request.session.get("room_entry"),
+            author_ip = get_client_ip(request),
+            message = request.POST.get("msg"),
+            room = Room.objects.get(id=kwargs["room"])
+        )
+        newmsg.save()
+        return HttpResponseRedirect('')
     else:                           # GET #
         room = Room.objects.get(id=kwargs["room"])
         messages = Message.objects.filter(room=room)
