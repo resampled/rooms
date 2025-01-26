@@ -16,13 +16,13 @@ def homepage(request, **kwargs):
 def room(request, **kwargs):
     #print(request.session.get("room_entry"))
     # various checks
+    if request.session.get("room_entry") == None:
+        return HttpResponseRedirect('enter')
     captcha_passed = False
     if request.session.get("captcha_passed", True):
         captcha_passed = True
     if captcha_passed == False:
         return HttpResponseRedirect('entry?err=captcha_failed')
-    if request.session.get("room_entry") == None:
-        return HttpResponseRedirect('enter')
     # now for the real stuff...
     if request.POST:                # POST #
         # limits
