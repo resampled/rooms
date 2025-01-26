@@ -25,7 +25,10 @@ def room(request, **kwargs):
         return HttpResponseRedirect('enter')
     # now for the real stuff...
     if request.POST:                # POST #
-        # todo: make message object 
+        # limits
+        if len(request.POST.get("msg")) >= 5000:
+            return HttpResponseRedirect('?err=msg_over')
+        # create message model
         newmsg = Message(
             author_namekey = request.session.get("room_entry"),
             author_ip = get_client_ip(request),
@@ -57,6 +60,15 @@ def enter_room(request, **kwargs):
             return HttpResponseRedirect('?err=captcha_failed')
         else:
             request.session["captcha_passed"] = True
+        # limits
+        if len(request.POST['nickname']) >= 90:
+            return HttpResponseRedirect('?err=nick_over')
+        if len(request.POST['nickname']) <= 1:
+            return HttpResponseRedirect('?err=nick_under')
+        if len(request.POST['uniquekey']) >= 500:
+            return HttpResponseRedirect('?err=key_over')
+        if len(request.POST['unique']) <= 4:
+            return HttpResponseRedirect('?err=key_under')
         # todo: create cookie and redirect to room
         cookie_content = namekeys.generate_nk_combo(request.POST['nickname'],request.POST['uniquekey'])
         if cookie_content == '0':
@@ -85,6 +97,16 @@ def create_room(request, **kwargs):
         if Room.objects.filter(id=request.POST['url']).first() != None:
             # check if room already exists
             return HttpResponseRedirect('?err=url_exists')
+        # limits
+        if len(request.POST['description']) >= 3000:
+            return HttpResponseRedirect('?err=desc_over')
+        if len(request.POST['password']) <= 5:
+            return HttpResponseRedirect('?err=password_under')
+        if len(request.POST['url']) => 50:
+            return HttpResponseRedirect('?err=url_over')
+        if len(request.POST['editcode']) <= 50:
+            return HttpResponseRedirect('?err=editcode_under')
+        # password 
         passworded = False
         if 'passworded' in request.POST:
             passworded = True
