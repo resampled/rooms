@@ -71,7 +71,7 @@ def enter_room(request, **kwargs):
             return HttpResponseRedirect('?err=nick_under')
         if len(request.POST['uniquekey']) >= 500:
             return HttpResponseRedirect('?err=key_over')
-        if len(request.POST['unique']) <= 4:
+        if len(request.POST['uniquekey']) <= 4:
             return HttpResponseRedirect('?err=key_under')
         # todo: create cookie and redirect to room
         cookie_content = namekeys.generate_nk_combo(request.POST['nickname'],request.POST['uniquekey'])
