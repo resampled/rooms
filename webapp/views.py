@@ -38,6 +38,9 @@ def room(request, **kwargs):
         newmsg.save()
         return HttpResponseRedirect('')
     else:                           # GET #
+        err = None
+        if 'err' in request.GET:
+            err = request.GET.get('err')
         room = Room.objects.get(id=kwargs["room"])
         messages = Message.objects.filter(room=room)
         your_name = namekeys.decouple_nk_to_name(request.session.get("room_entry"))
@@ -49,6 +52,7 @@ def room(request, **kwargs):
             'your_name': your_name,
             'your_nk_hash': your_nk_hash,
             'your_nk_hash_trunc': your_nk_hash_trunc,
+            'err': err,
         }
         return render(request, 'room.html', context=ctxt)
 
@@ -79,10 +83,14 @@ def enter_room(request, **kwargs):
         # maybe store in sessionstorage instead?
         return response
     else: # GET
+        err = None
+        if 'err' in request.GET:
+            err = request.GET.get('err')
         captcha = CaptchaStandaloneForm()
         ctxt = {
             'captcha': captcha,
             'room': room,
+            'err': err,
         }
         return render(request, 'dialog/enter_room.html', context=ctxt)
 
@@ -121,8 +129,12 @@ def create_room(request, **kwargs):
         gen_room.save()
         return HttpResponseRedirect(f"/{request.POST['url']}/")
     else: # GET
+        err = None
+        if 'err' in request.GET:
+            err = request.GET.get('err')
         captcha = CaptchaStandaloneForm()
         ctxt = {
             'captcha': captcha,
+            'err': err,
         }
         return render(request, 'dialog/create_room.html',context=ctxt)
