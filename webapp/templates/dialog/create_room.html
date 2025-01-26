@@ -1,26 +1,50 @@
 {% extends '_base_dialog.html' %}
 
 {% block dialog %}
+
+{% if err != None %}
+<div class="err">
+    <div class="err-code">err: {{ err }}</div>
+    <div class="err-desc">
+    {% if err == 'password_under' %}
+    password is too short (6 characters min)
+    {% elif err == 'captcha_failed' %}
+    captcha failed, try again
+    {% elif err == 'url_notslug' %}
+    url is not valid (a-z, 0-9, _, - only)
+    {% elif err == 'url_exists' %}
+    url is already used by another room... sorry!
+    {% elif err == 'url_over' %}
+    url is too long (50 characters max)
+    {% elif err == 'desc_over' %}
+    description is too long (3000 characters max)
+    {% elif err == 'editcode_under' %}
+    edit code is too weak (6 characters min)
+    {% endif %}
+    </div>
+</div>
+{% endif %}
+
 <h1>create room</h1>
 
 <form method="POST">
 {% csrf_token %}
 <p>url characters allowed: "0-9", "a-z", "-", "_"</p>
 <label for="rc_url">url:</label>
-<input type="text" name="url" required class="nameform" id="rc_url" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false" placeholder="room1">
+<input type="text" name="url" required class="nameform" id="rc_url" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false" placeholder="room1" maxlength="50">
 <hr>
-<p>use this code to edit your room, delete messages, etc... your edit code should be very secure, at least 25 chars long!</p>
+<p>use this code to edit your room, delete messages, etc... your edit code should be very secure!</p>
 <label for="rc_url">edit code:</label>
-<input type="text" name="editcode" required class="nameform" id="rc_editcode" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false">
+<input type="text" name="editcode" required class="nameform" id="rc_editcode" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false" maxlength="500">
 <hr>
 <label for="rc_description">description (optional):</label>
 <br>
-<textarea type="text" name="description" id="rc_description" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false"></textarea>
+<textarea type="text" name="description" id="rc_description" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false" maxlength="3000"></textarea>
 <hr>
 <label for="rc_passworded">has password?</label>
 <input type="checkbox" name="passworded" id="rc_passworded">
 <p>if enabled, type password: (this field will be ignored if unchecked)</p>
-<input type="text" name="password" class="nameform" id="rc_password" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false">
+<input type="text" name="password" class="nameform" id="rc_password" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false" maxlength="500">
 <hr>
 {{captcha}}
 <input type="submit" class="submitform" value="create room...">
