@@ -21,11 +21,12 @@
         <span class="r-msg r-msg-tag">
         &lt;<span class="r-msg-name">{{ your_name }}</span>
         <span class="r-msg-hash">[<abbr title="{{your_nk_hash}}">{{ your_nk_hash_trunc }}</abbr>]</span>&gt;</span>
-        <input type="text" name="msg" class="r-input-box" autocomplete="off">
+        <input type="text" name="msg" class="r-input-box" autocomplete="off" maxlength="1999">
         <input type="submit" class="r-input-submit" value=Send>
     </div>
 </form>
     </div>
 </div>
+
 <script>feed=document.getElementById("r-feed");feed.scrollTop=feed.scrollHeight;</script>
 {% endblock %}

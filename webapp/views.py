@@ -26,7 +26,7 @@ def room(request, **kwargs):
     # now for the real stuff...
     if request.POST:                # POST #
         # limits
-        if len(request.POST.get("msg")) >= 5000:
+        if len(request.POST.get("msg")) >= 2000:
             return HttpResponseRedirect('?err=msg_over')
         # create message model
         newmsg = Message(
