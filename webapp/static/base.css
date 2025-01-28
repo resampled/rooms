@@ -69,6 +69,9 @@ body {
     .captcha {
         width: 100%;
     }
+    .r-feed {
+        height: 80vh;
+    }
     .r-msg {
         font-size: 12px;
     }
