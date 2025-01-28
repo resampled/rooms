@@ -13,10 +13,10 @@
 <form method="POST">
 {% csrf_token %}
 <label for="nickname_1">Nickname:</label>
-<input type="text" name="nickname" required class="nameform" id="nickname_1" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false" placeholder="ectoBiologist">
+<input type="text" name="nickname" required class="nameform" id="nickname_1" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false" placeholder="ectoBiologist" maxlength="89">
 <br>
 <label for="password_1">Password:</label>
-<input type="password" name="uniquekey" required class="nameform" id="uniquekey_1" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false" placeholder="PutTheBunnyBackInTheBox!!">
+<input type="password" name="uniquekey" required class="nameform" id="uniquekey_1" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false" placeholder="PutTheBunnyBackInTheBox!!" maxlength="499">
 <br>
 <p>This password is used to generate a unique ID.</p>
 <p>You can use the same nickname+password to remain "yourself" across different devices.</p>
