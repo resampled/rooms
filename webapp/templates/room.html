@@ -1,6 +1,12 @@
 {% extends '_base.html' %}
 
 {% block body %}
+
+<div class="r-head">
+    <div class="r-name">{{ room.id }}</div>
+    <div class="r-edit"><a href="editcode">edit</a></div>
+</div>
+
 <div class="r-outer">
                                                         {# todo: refresh ajax feed on new message #}
     <div class="r-feed" id="r-feed">
