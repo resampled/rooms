@@ -94,6 +94,12 @@ def enter_room(request, **kwargs):
         }
         return render(request, 'dialog/enter_room.html', context=ctxt)
 
+def edit_room_editcode(request, **kwargs):
+    if request.POST:
+        pass
+    else:
+        return render(request, 'dialog/edit_room_editcode.html')
+
 def create_room(request, **kwargs):
     if request.POST:
         captcha = CaptchaStandaloneForm(request.POST)

@@ -1,0 +1,12 @@
+{% extends '_base_dialog.html' %}
+
+{% block dialog %}
+<form method="POST">
+{% csrf_token %}
+    <label for="editcode">editcode:</label>
+    <input type="text" id="editcode" name="editcode">
+    <input type="submit">
+</form>
+<br>
+<a href=".">back</a>
+{% endblock %}
