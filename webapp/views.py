@@ -116,10 +116,14 @@ def create_room(request, **kwargs):
             return HttpResponseRedirect('?err=desc_over')
         if len(request.POST['password']) <= 5 and len(request.POST['password']) != 0:
             return HttpResponseRedirect('?err=password_under')
+        if len(request.POST['password']) >= 500:
+            return HttpResponseRedirect('?err=password_over')
         if len(request.POST['url']) >= 50:
             return HttpResponseRedirect('?err=url_over')
         if len(request.POST['editcode']) <= 5:
             return HttpResponseRedirect('?err=editcode_under')
+        if len(request.POST['editcode']) >= 500:
+            return HttpResponseRedirect('?err=editcode_over')
         # password 
         passworded = False
         if 'passworded' in request.POST:
