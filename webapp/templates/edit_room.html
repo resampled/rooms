@@ -1,5 +1,28 @@
 {% extends '_base.html' %}
 
 {% block body %}
-editing room {{ room.id }}
+<h2>editing room {{ room.id }}</h2>
+
+<a href=".">back</a>
+<br>
+<form method="POST">
+{% csrf_token %}
+<input type="hidden" name="settings-form" value="1">
+has password:
+<input type="checkbox" name="passworded" {% if room.passworded %}checked{% endif %}>
+<input type="text" name="password" value="{{ room.password }}">
+<input type="submit" value="Submit">
+</form>
+<br>
+<h3>Message List (last 500)</h3>
+{% for msg in messages %}
+#{{msg.id}} {{msg.author_name}}[{{msg.author_nk_hash}}]
+<form method="POST">{% csrf_token %}
+<input type="submit" name="delete-{{msg.id}}" value="delete">
+<input type="submit" name="kick-{{msg.id}}" value="kick user">
+</form>
+<span class="small">{{ msg.message }}</span><hr>
+{% endfor %}
+<br>
+
 {% endblock %}
