@@ -107,9 +107,9 @@ def edit_room(request, **kwargs):
 def edit_room_editcode(request, **kwargs):
     if request.POST:
         if len(request.POST["editcode"]) >= 500:
-            return HttpReponseRedirect('?err=editcode_over')
+            return HttpResponseRedirect('?err=editcode_over')
         request.session["editcode"] = request.POST["editcode"]
-        return HttpReponseRedirect('edit')
+        return HttpResponseRedirect('edit')
     else:
         return render(request, 'dialog/edit_room_editcode.html')
 
