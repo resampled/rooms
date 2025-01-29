@@ -96,11 +96,15 @@ def enter_room(request, **kwargs):
 
 def edit_room(request, **kwargs):
     room = Room.objects.get(id=kwargs["room"])
+    messages = Message.objects.filter(room=room).order_by('id')
+    if request.session["editcode"] != room.edit_code:
+        return HttpResponseRedirect('editcode?err=editcode_fail')
     if request.POST:
         pass
     else:
         ctxt = {
             'room': room,
+            'messages': messages,
         }
         return render(request, 'edit_room.html', context=ctxt)
 
