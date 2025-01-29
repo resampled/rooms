@@ -100,7 +100,17 @@ def edit_room(request, **kwargs):
     if request.session["editcode"] != room.edit_code:
         return HttpResponseRedirect('editcode?err=editcode_fail')
     if request.POST:
-        pass
+        if 'settings-form' in request.POST:
+            return HttpResponseRedirect('?err=0_00')
+        if 'msgaction-form' in request.POST:
+            if Message.objects.get(id=request.POST['msgaction-form']).room != room:
+                return HttpResponseRedirect('?err=wtf') # if message isn't in this room (form hacking)
+            target = Message.objects.get(id=request.POST['msgaction-form'])
+            if 'delete' in request.POST:
+                target.delete()
+                return HttpResponseRedirect('?err=0_10')
+            if 'kick' in request.POST: # somehow add a "kick" flag to a specific user#key (with dict?)
+                return HttpResponseRedirect('?err=0_11')
     else:
         ctxt = {
             'room': room,
