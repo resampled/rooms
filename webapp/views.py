@@ -94,9 +94,22 @@ def enter_room(request, **kwargs):
         }
         return render(request, 'dialog/enter_room.html', context=ctxt)
 
-def edit_room_editcode(request, **kwargs):
+def edit_room(request, **kwargs):
+    room = Room.objects.get(id=kwargs["room"])
     if request.POST:
         pass
+    else:
+        ctxt = {
+            'room': room,
+        }
+        return render(request, 'edit_room.html', context=ctxt)
+
+def edit_room_editcode(request, **kwargs):
+    if request.POST:
+        if len(request.POST["editcode"]) >= 500:
+            return HttpReponseRedirect('?err=editcode_over')
+        request.session["editcode"] = request.POST["editcode"]
+        return HttpReponseRedirect('edit')
     else:
         return render(request, 'dialog/edit_room_editcode.html')
 
