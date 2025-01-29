@@ -18,8 +18,9 @@ has password:
 {% for msg in messages %}
 #{{msg.id}} {{msg.author_name}}[{{msg.author_nk_hash}}]
 <form method="POST">{% csrf_token %}
-<input type="submit" name="delete-{{msg.id}}" value="delete">
-<input type="submit" name="kick-{{msg.id}}" value="kick user">
+<input type="hidden" name="msgaction-form" value="{{msg.id}}">
+<input type="submit" name="delete" value="delete">
+<input type="submit" name="kick" value="kick">
 </form>
 <span class="small">{{ msg.message }}</span><hr>
 {% endfor %}
