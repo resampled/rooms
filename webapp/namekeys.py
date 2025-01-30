@@ -5,6 +5,10 @@ import re
 def generate_nk_combo(name,key):
     if '#' in name:
         return '0'
+    if '\x06' in name:
+        return '0'
+    if '\x06' in key:
+        return '0'
     return f"{name}#{key}"
 
 def decouple_nk_to_name(inp):
