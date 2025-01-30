@@ -7,7 +7,10 @@ def get_client_ip(request):
         ip = request.META.get('REMOTE_ADDR')
     return ip
 
+# elist:
 # hack to store lists as strings in DB (seperated by \x06)
+
+# convert elist to regular python list
 def elist_to_list(elist):
     outlist = []
     builder = '' # assembles string from chars
@@ -20,9 +23,16 @@ def elist_to_list(elist):
     outlist.append(builder) # join last
     return outlist
 
+# append string to elist (raises exception if \x06 found)
 def elist_append(elist,new):
     if '\x06' in new:
         raise Exception('Found invalid joining character x06')
     return f"{elist}\x06{new}"
 
-print(elist_append('abc#123','g\x06hi#789'))
+# find string in elist
+def elist_find(elist,query):
+    list_ = elist_to_list(elist)
+    for item in list_:
+        if item == query:
+            return True
+    return False
