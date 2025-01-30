@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
 from .forms import CaptchaStandaloneForm
 from .models import Room, Message
-from .misc import get_client_ip
+from .misc import get_client_ip, elist_append, elist_find
 from . import namekeys
 import re
 
@@ -109,7 +109,9 @@ def edit_room(request, **kwargs):
             if 'delete' in request.POST:
                 target.delete()
                 return HttpResponseRedirect('?err=0_10')
-            if 'kick' in request.POST: # somehow add a "kick" flag to a specific user#key (with dict?)
+            if 'kick' in request.POST:
+                # todo: append nk to banned_nk elist
+                # todo2: make rooms & entry stop rendering if user#key found in banned_nk
                 return HttpResponseRedirect('?err=0_11')
     else:
         ctxt = {
