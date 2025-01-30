@@ -16,6 +16,7 @@ class Room(models.Model):
     public_list = models.BooleanField()
     passworded = models.BooleanField()
     password = models.CharField(unique=False,null=True,max_length=200)
+    banned_nk = models.TextField(unique=False,null=True,max_length=9000) #elist
     def __str__(self):
         return self.id
 
