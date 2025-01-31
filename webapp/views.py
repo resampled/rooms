@@ -19,7 +19,7 @@ def room(request, **kwargs):
     # various checks
     if request.session.get("room_entry") == None:
         return HttpResponseRedirect('enter')
-    if elist_find(room.banned_nk,request.session["room_entry"]) == True: # if nk kicked from room
+    if "room_entry" in request.session and elist_find(room.banned_nk,request.session["room_entry"]) == True: # if nk kicked from room
         return HttpResponseRedirect('kicked')
     captcha_passed = False
     if request.session.get("captcha_passed", True):
