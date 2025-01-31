@@ -15,9 +15,12 @@ def homepage(request, **kwargs):
 
 def room(request, **kwargs):
     #print(request.session.get("room_entry"))
+    room = Room.objects.get(id=kwargs["room"])
     # various checks
     if request.session.get("room_entry") == None:
         return HttpResponseRedirect('enter')
+    if elist_find(room.banned_nk,request.session["room_entry"]) == True: # if nk kicked from room
+        return HttpResponseRedirect('kicked')
     captcha_passed = False
     if request.session.get("captcha_passed", True):
         captcha_passed = True
@@ -41,7 +44,6 @@ def room(request, **kwargs):
         err = None
         if 'err' in request.GET:
             err = request.GET.get('err')
-        room = Room.objects.get(id=kwargs["room"])
         messages = Message.objects.filter(room=room)
         your_name = namekeys.decouple_nk_to_name(request.session.get("room_entry"))
         your_nk_hash = namekeys.hash_nk(request.session.get("room_entry"))
@@ -58,6 +60,8 @@ def room(request, **kwargs):
 
 def enter_room(request, **kwargs):
     room = Room.objects.get(id=kwargs["room"])
+    if "room_entry" in request.session and elist_find(room.banned_nk,request.session["room_entry"]) == True: # if nk kicked from room
+        return HttpResponseRedirect('kicked')
     if request.POST:
         captcha = CaptchaStandaloneForm(request.POST)
         if not captcha.is_valid(): # check captcha
@@ -110,7 +114,8 @@ def edit_room(request, **kwargs):
                 target.delete()
                 return HttpResponseRedirect('?err=0_10')
             if 'kick' in request.POST:
-                # todo: append nk to banned_nk elist
+                room.banned_nk = elist_append(room.banned_nk,target.author_namekey) # append nk to banned_nk elist
+                room.save()
                 # todo2: make rooms & entry stop rendering if user#key found in banned_nk
                 return HttpResponseRedirect('?err=0_11')
     else:
@@ -164,6 +169,7 @@ def create_room(request, **kwargs):
             public_list=False,
             passworded=passworded,
             password=request.POST['password'],
+            banned_nk='',
         )
         gen_room.save()
         return HttpResponseRedirect(f"/{request.POST['url']}/")
