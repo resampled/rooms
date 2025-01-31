@@ -1,4 +1,9 @@
 {% extends '_base.html' %}
+{% load static %}
+
+{% block head2 %}
+<script defer type="text/javascript" src="{% static 'room.js' %}"></script>
+{% endblock %}
 
 {% block body %}
 
@@ -34,5 +39,5 @@
     </div>
 </div>
 
-<script>feed=document.getElementById("r-feed");feed.scrollTop=feed.scrollHeight;</script>
+<script></script>
 {% endblock %}
