@@ -14,6 +14,7 @@ has password:
 <input type="submit" value="Submit">
 </form>
 <br>
+<pre>{{ room.banned_nk }}</pre>
 <h3>Message List (last 500)</h3>
 {% for msg in messages %}
 #{{msg.id}} {{msg.author_name}}[{{msg.author_nk_hash}}]
