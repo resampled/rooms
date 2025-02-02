@@ -3,6 +3,24 @@
 *Warning: This software is in alpha. Certain components are missing.*
 
 ## Features
+### Namekeys
+Before entering a room, users will enter two fields, "name" and "key".
+
+"Name" is your display name, and "Key" is a secret field that generates a unique sha256 hash.
+
+| name   | key    | chat display           |
+| ------ | ------ | ---------------------- |
+| lorem  | ipsum  | `<lorem [OoWEKagiuu..]>` |
+| lorem  | dolor  | `<lorem [bvEdCbsdxK..]>` |
+| ipsum  | dolor  | `<ipsum [v6ZIJCGrZM..]>` |
+
+These namekeys are tied to your browser session. The same namekey works across rooms.
+
+(The full hash can also be viewed in-app, but is displayed shortened in the chat window.)
+### Edit code
+When rooms are created, they require a strong *edit code*.
+
+Anyone with the edit code can alter and moderate the room.
 
 ## Deployment
 So far there are no human-friendly setup scripts or tutorials. Only those with patience and Django experience should proceed.
