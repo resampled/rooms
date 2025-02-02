@@ -1,11 +1,15 @@
-Warning: This software is in *very* early alpha. Vital components are missing. At this stage, don't bother with this one. My apologies...
+**rooms** is a Django web application for easy chatrooms. Significantly, user accounts are not required to join a room, while preserving  authenticity and moderation. - managed through the "namekey" system.
 
-### But if you want to deploy this, anyway...
+*Warning: This software is in alpha. Certain components are missing.*
+
+## Features
+
+## Deployment
 So far there are no human-friendly setup scripts or tutorials. Only those with patience and Django experience should proceed.
 
-All required dependencies are listed in `requirements.txt`.
-
 Please review the file `rooms/settings.py` and fill out your .env files accordingly. Feel free to change some of the settings to suit your deployment, especially those marked with the comment `# [change-me]`.
+
+All required dependencies are listed in `requirements.txt`.
 
 Our settings assume HTTP for DEBUG=True, and HTTPS w/ HSTS for DEBUG=False.
 
