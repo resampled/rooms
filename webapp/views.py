@@ -189,5 +189,5 @@ def kicked_room(request, **kwargs):
     ctxt = {
         'room': room,
     }
-    return render('dialog/kicked.html', context=ctxt)
+    return render(request, 'dialog/kicked.html', context=ctxt)
 
