@@ -183,3 +183,11 @@ def create_room(request, **kwargs):
             'err': err,
         }
         return render(request, 'dialog/create_room.html',context=ctxt)
+
+def kicked_room(request, **kwargs):
+    room = Room.objects.get(id=kwargs["room"])
+    ctxt = {
+        'room': room,
+    }
+    return render('dialog/kicked.html', context=ctxt)
+
