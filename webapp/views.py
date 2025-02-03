@@ -21,11 +21,15 @@ def room(request, **kwargs):
         return HttpResponseRedirect('enter')
     if "room_entry" in request.session and elist_find(room.banned_nk,request.session["room_entry"]) == True: # if nk kicked from room
         return HttpResponseRedirect('kicked')
+    # captccha
     captcha_passed = False
     if request.session.get("captcha_passed", True):
         captcha_passed = True
     if captcha_passed == False:
         return HttpResponseRedirect('entry?err=captcha_failed')
+    if room.passworded == True:
+        if "room_pwd" not in request.session or request.session["room_pwd"] != room.password:
+            return HttpResponseRedirect('pwd')
     # now for the real stuff...
     if request.POST:                # POST #
         # limits
