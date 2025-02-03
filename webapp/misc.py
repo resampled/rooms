@@ -28,7 +28,7 @@ def elist_append(elist,new):
     if '\x06' in new:
         raise Exception('Found invalid joining character x06')
     if elist == '' or elist == None:
-        return "{new}"
+        return f"{new}"
     return f"{elist}\x06{new}"
 
 # find string in elist
