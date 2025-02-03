@@ -191,3 +191,19 @@ def kicked_room(request, **kwargs):
     }
     return render(request, 'dialog/kicked.html', context=ctxt)
 
+def passworded_room(request, **kwargs): # todo: perhaps merge this with room_entry?
+    room = Room.objects.get(id=kwargs["room"])
+    if request.POST:
+        if len(request.POST['pwd']) >= 500:
+            return HttpResponseRedirect('?err=password_over')
+        request.session['room_pwd'] = request.POST['pwd']
+        return HttpResponseRedirect('.')
+    else:
+        err = None
+        if 'err' in request.GET:
+            err = request.GET.get('err')
+        ctxt = {
+            'room': room,
+            'err': err,
+        }
+        return render(request, 'dialog/passworded.html', context=ctxt)

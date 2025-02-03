@@ -10,5 +10,6 @@ urlpatterns = [
     path('<slug:room>/editcode', views.edit_room_editcode, name='edit_room_editcode'),
     path('<slug:room>/enter', views.enter_room, name='enter_room'),
     path('<slug:room>/kicked', views.kicked_room, name='kicked_room'),
+    path('<slug:room>/pwd', views.passworded_room, name='passworded_room'),
     path('=/create', views.create_room, name='create_room'),
 ]
