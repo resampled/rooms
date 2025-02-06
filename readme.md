@@ -29,6 +29,8 @@ Please review the file `rooms/settings.py` and fill out your .env files accordin
 
 All required dependencies are listed in `requirements.txt`.
 
+Static file handling is required (Whitenoise used). Default database is SQLite, but should work on other DBs (especially Postgres) without trouble.
+
 Our settings assume HTTP for DEBUG=True, and HTTPS w/ HSTS for DEBUG=False.
 
 Deployment has not been tested, so you may also need to make some changes if/when errors occur. Crack the whole thing apart, if you need to.
