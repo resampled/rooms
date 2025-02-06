@@ -190,6 +190,12 @@ def create_room(request, **kwargs):
 
 def kicked_room(request, **kwargs):
     room = Room.objects.get(id=kwargs["room"])
+    # if no namekey
+    if "room_entry" not in request.session:
+        return HttpResponseRedirect('./enter')
+    # if namekey not kicked
+    if "room_entry" in request.session and elist_find(room.banned_nk,request.session["room_entry"]) == False:
+        return HttpResponseRedirect('.')
     ctxt = {
         'room': room,
     }
