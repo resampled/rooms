@@ -197,6 +197,12 @@ def kicked_room(request, **kwargs):
 
 def passworded_room(request, **kwargs): # todo: perhaps merge this with room_entry?
     room = Room.objects.get(id=kwargs["room"])
+    # if not passworded
+    if room.passworded == False:
+        if "room_entry" in request.session:
+            return HttpResponseRedirect('.')
+        else:
+            return HttpResponseRedirect('./enter')
     if request.POST:
         if len(request.POST['pwd']) >= 500:
             return HttpResponseRedirect('?err=password_over')
