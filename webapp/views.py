@@ -109,25 +109,25 @@ def edit_room(request, **kwargs):
         return HttpResponseRedirect('editcode?err=editcode_fail')
     if request.POST:
         if 'settings-form' in request.POST:
-            return HttpResponseRedirect('?err=0_00')
             # todo: handle settings change
+            return HttpResponseRedirect('?rsp=0')
         if 'msgaction-form' in request.POST:
             if Message.objects.get(id=request.POST['msgaction-form']).room != room:
                 return HttpResponseRedirect('?err=wtf') # if message isn't in this room (form hacking)
             target = Message.objects.get(id=request.POST['msgaction-form'])
             if 'delete' in request.POST:
                 target.delete()
-                return HttpResponseRedirect('?err=0_10')
+                return HttpResponseRedirect('?rsp=msgaction-delete')
             if 'kick' in request.POST:
                 room.banned_nk = elist_append(room.banned_nk,target.author_namekey) # append nk to banned_nk elist
                 room.save()
                 # todo2: make rooms & entry stop rendering if user#key found in banned_nk
-                return HttpResponseRedirect('?err=0_11')
+                return HttpResponseRedirect('?rsp=msgaction-kick')
             if 'delall' in request.POST:
                 targets = Message.objects.filter(author_namekey=target.author_namekey)
                 for target_item in targets:
                     target_item.delete()
-                return HttpResponseRedirect('?err=0_12')
+                return HttpResponseRedirect('?rsp=msgaction-delall')
     else:
         ctxt = {
             'room': room,
