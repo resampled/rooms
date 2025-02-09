@@ -110,6 +110,7 @@ def edit_room(request, **kwargs):
     if request.POST:
         if 'settings-form' in request.POST:
             return HttpResponseRedirect('?err=0_00')
+            # todo: handle settings change
         if 'msgaction-form' in request.POST:
             if Message.objects.get(id=request.POST['msgaction-form']).room != room:
                 return HttpResponseRedirect('?err=wtf') # if message isn't in this room (form hacking)
