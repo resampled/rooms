@@ -21,6 +21,7 @@ has password:
 <form method="POST">{% csrf_token %}
 <input type="hidden" name="msgaction-form" value="{{msg.id}}">
 <input type="submit" name="delete" value="delete">
+<input type="submit" name="delall" value="delete all messages from this user">
 <input type="submit" name="kick" value="kick">
 </form>
 <span class="small">{{ msg.message }}</span><hr>
