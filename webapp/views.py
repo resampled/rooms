@@ -122,6 +122,11 @@ def edit_room(request, **kwargs):
                 room.save()
                 # todo2: make rooms & entry stop rendering if user#key found in banned_nk
                 return HttpResponseRedirect('?err=0_11')
+            if 'delall' in request.POST:
+                targets = Message.objects.filter(author_namekey=target.author_namekey)
+                for target_item in targets:
+                    target_item.delete()
+                return HttpResponseRedirect('?err=0_12')
     else:
         ctxt = {
             'room': room,
