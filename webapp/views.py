@@ -121,7 +121,6 @@ def edit_room(request, **kwargs):
             if 'kick' in request.POST:
                 room.banned_nk = elist_append(room.banned_nk,target.author_namekey) # append nk to banned_nk elist
                 room.save()
-                # todo2: make rooms & entry stop rendering if user#key found in banned_nk
                 return HttpResponseRedirect('?rsp=msgaction-kick')
             if 'delall' in request.POST:
                 targets = Message.objects.filter(author_namekey=target.author_namekey)
