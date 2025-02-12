@@ -81,7 +81,6 @@ def enter_room(request, **kwargs):
             return HttpResponseRedirect('?err=key_over')
         if len(request.POST['uniquekey']) <= 4:
             return HttpResponseRedirect('?err=key_under')
-        # todo: create cookie and redirect to room
         cookie_content = namekeys.generate_nk_combo(request.POST['nickname'],request.POST['uniquekey'])
         if cookie_content == '0':
             return HttpResponseRedirect('?err=nick_invchar')
@@ -109,7 +108,7 @@ def edit_room(request, **kwargs):
         return HttpResponseRedirect('editcode?err=editcode_fail')
     if request.POST:
         if 'settings-form' in request.POST:
-            # todo: handle settings change
+            # todo: handle settings change <---------
             return HttpResponseRedirect('?rsp=0')
         if 'msgaction-form' in request.POST:
             if Message.objects.get(id=request.POST['msgaction-form']).room != room:
