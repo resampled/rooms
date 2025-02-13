@@ -109,6 +109,13 @@ def edit_room(request, **kwargs):
     if request.POST:
         if 'settings-form' in request.POST:
             # todo: handle settings change <---------
+            if 'passworded' in request.POST:
+                room.passworded = True
+                room.password = request.POST['password']
+                room.save()
+            else:
+                room.passworded = False
+                room.save()
             return HttpResponseRedirect('?rsp=0')
         if 'msgaction-form' in request.POST:
             if Message.objects.get(id=request.POST['msgaction-form']).room != room:
