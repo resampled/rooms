@@ -108,7 +108,6 @@ def edit_room(request, **kwargs):
         return HttpResponseRedirect('editcode?err=editcode_fail')
     if request.POST:
         if 'settings-form' in request.POST:
-            # todo: handle settings change <---------
             if 'passworded' in request.POST:
                 if len(request.POST['password']) <= 5 and len(request.POST['password']) != 0:
                     return HttpResponseRedirect('?err=password_under')
