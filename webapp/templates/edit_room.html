@@ -10,7 +10,7 @@
 <input type="hidden" name="settings-form" value="1">
 has password:
 <input type="checkbox" name="passworded" {% if room.passworded %}checked{% endif %}>
-<input type="text" name="password" value="{{ room.password }}">
+<input type="text" name="password" value="{% if room.passworded %}{{ room.password }}{% endif %}">
 <input type="submit" value="Submit">
 </form>
 <br>
