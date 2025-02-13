@@ -110,6 +110,10 @@ def edit_room(request, **kwargs):
         if 'settings-form' in request.POST:
             # todo: handle settings change <---------
             if 'passworded' in request.POST:
+                if len(request.POST['password']) <= 5 and len(request.POST['password']) != 0:
+                    return HttpResponseRedirect('?err=password_under')
+                if len(request.POST['password']) >= 500:
+                    return HttpResponseRedirect('?err=password_over')
                 room.passworded = True
                 room.password = request.POST['password']
                 room.save()
