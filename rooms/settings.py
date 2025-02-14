@@ -168,5 +168,5 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # [change-me]
-ALLOWED_HOSTS = ['127.0.0.1','ch.meizen.org']
-CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1','https://ch.meizen.org']
+ALLOWED_HOSTS = ['127.0.0.1','ch.meizen.org','ch.o3o3.org']
+CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1','https://ch.meizen.org','https://ch.o3o3.org']
