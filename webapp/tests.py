@@ -1,4 +1,4 @@
-from django.test import TestCase
+from django.test import TestCase, Client
 from .models import Room, Message
 from .misc import elist_find
 from . import namekeys
@@ -50,6 +50,11 @@ class NameKeysTest(TestCase):
     def test_hash_nk_trunc(self):
         self.assertEqual(namekeys.hash_nk_trunc(self.nk_to_hash),'88DFx2E7Rb..')
 
-
-
+class DjangoClientTest(TestCase):
+    cl = Client()
+    def test_django_client_on_homepage(self):
+        response = self.cl.get('')
+        self.assertEqual(response.status_code,200)
+        # If you get this error "ValueError: Missing staticfiles manifest entry for '(something)'",
+        # you forgot to run << python manage.py collectstatic >> first.
 
