@@ -158,7 +158,8 @@ CAPTCHA_FONT_SIZE = 26
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_ROOT = '/var/www/static'
+#STATIC_ROOT = '/var/www/static'
+STATIC_ROOT = 'collected_static/' # [change-me]
 STATIC_URL = 'static/'
 
 # Default primary key field type
