@@ -237,3 +237,17 @@ def passworded_room(request, **kwargs): # todo: perhaps merge this with room_ent
             'err': err,
         }
         return render(request, 'dialog/passworded.html', context=ctxt)
+
+def xhr_room_feed(request, **kwargs):
+    if 'r' not in request.GET:
+        return HttpResponse('fail 0')
+    room = Room.objects.get(id=request.GET["r"])
+    if room.passworded:
+        if 'pwd' not in request.GET:
+            return HttpResponse('fail 1')
+        if request.GET['pwd'] != room.password:
+            return HttpResponse('fail 2')
+    ctxt = {
+        'messages': Message.objects.filter(room=room).order_by('id')
+    }
+    return render(request, 'xhr/room_feed.html', context=ctxt)
