@@ -1,0 +1,8 @@
+{% for msg in messages %}
+    <div class="r-msg" var1="{{ msg.id }}">
+    <span class="r-msg-tag">
+&lt;<span class="r-msg-name">{{ msg.author_name }}</span>
+<span class="r-msg-hash">[<abbr title="{{msg.author_nk_hash}}">{{ msg.author_nk_hash_trunc }}</abbr>]</span>&gt;</span>
+<span class="r-msg-msg">{{ msg.message }}</span>
+    </div>
+{% endfor %}
