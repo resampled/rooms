@@ -12,4 +12,5 @@ urlpatterns = [
     path('<slug:room>/kicked', views.kicked_room, name='kicked_room'),
     path('<slug:room>/pwd', views.passworded_room, name='passworded_room'),
     path('=/create', views.create_room, name='create_room'),
+    path('=/xhr_room_feed', views.xhr_room_feed, name='xhr_room_feed'),
 ]
