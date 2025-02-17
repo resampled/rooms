@@ -9,3 +9,4 @@ dyn.onload = () => { rsp = dyn.responseXML.body.innerHTML; feed.innerHTML = rsp;
 function refresh() { let xhrurl = '/=/xhr_room_feed?r='+'qqz'; dyn.open('GET',xhrurl); dyn.responseType = 'document'; dyn.send(); }
 i = 0;
 window.onload = async () => { while (true) { await delay(5000); i += 1; console.log('refresh #'+i); refresh(); } }
+// todo: password
