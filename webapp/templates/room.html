@@ -5,7 +5,7 @@
 <script defer type="text/javascript" src="{% static 'room.js' %}"></script>
 <meta id="var_room" content="{{ room.id }}">
 {# todo: make this more secure? #}
-<meta id="var_pwplain" content="{% if room.passworded %}{{room.password}}{% else %}0{% endif %}">{# todo: make this more secure? #}
+<meta id="var_pwplain" content="{% if room.passworded %}{{room.password}}{% else %}0{% endif %}">
 {% endblock %}
 
 {% block body %}
