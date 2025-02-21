@@ -243,10 +243,8 @@ def xhr_room_feed(request, **kwargs):
         return HttpResponse('fail 0')
     room = Room.objects.get(id=request.GET["r"])
     if room.passworded:
-        if 'pwd' not in request.GET:
-            return HttpResponse('fail 1')
-        if request.GET['pwd'] != room.password:
-            return HttpResponse('fail 2')
+        if "room_pwd" not in request.session or request.session["room_pwd"] != room.password:
+            return HttpResponse('<h2>Password value nonexistent or changed!</h2><p>(did you enter another passworded room?)</p>')
     ctxt = {
         'messages': Message.objects.filter(room=room).order_by('id')
     }
