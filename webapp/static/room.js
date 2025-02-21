@@ -7,12 +7,6 @@ const delay = ms => new Promise(res => setTimeout(res, ms));
 const dyn = new XMLHttpRequest();
 dyn.onload = () => { rsp = dyn.responseXML.body.innerHTML; feed.innerHTML = rsp; }
 function refresh() { let xhrurl = getXhrUrl(); dyn.open('GET',xhrurl); dyn.responseType = 'document'; dyn.send(); }
-function getXhrUrl() {
-const pw=document.getElementById("var_pwplain");
-const rm=document.getElementById("var_room");
-if (pw.getAttribute("content")=="0"){
-return '/=/xhr_room_feed?r='+rm.getAttribute("content");}else{
-return '/=/xhr_room_feed?r='+rm.getAttribute("content")+'&pwd='+pw.getAttribute("content");
-}}
+function getXhrUrl() { const rm=document.getElementById("var_room"); return '/=/xhr_room_feed?r='+rm.getAttribute("content"); }
 i = 0;
 window.onload = async () => { while (true) { await delay(5000); i += 1; console.log('GET '+getXhrUrl()+' '+i); refresh(); } }
