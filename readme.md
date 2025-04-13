@@ -1,6 +1,6 @@
 **rooms** is a Django web application for easy chatrooms. Significantly, user accounts are not required to join a room, while preserving  authenticity and moderation through the "namekey" system.
 
-*Warning: This software is in alpha. Certain components are missing.*
+*Warning: This software is no longer being developed. Some complex components may need to be added in.*
 
 ## Features
 ### Namekeys
